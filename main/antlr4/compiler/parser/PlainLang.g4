@@ -1,0 +1,33 @@
+grammar PlainLang;
+options { visitor = true; }
+
+program      : methodList? EOF ;
+methodList   : method+ ;
+method       : type ID '(' params? ')' body ;
+params       : param (',' param)* ;
+param        : type ID ;
+type         : 'int' ;
+body         : '{' decls? stmts? '}' ;
+decls        : decl+ ;
+decl         : type ID vars? ';' | type ID '=' expr vars? ';' ;
+vars         : (',' ID ('=' expr)?)* ;
+stmts        : stmt* ;
+stmt         : assignStmt ';' | 'return' expr ';' | 'if' '(' expr ')' stmt 'else' stmt | 'while' '(' expr ')' stmt | 'break' ';' | block | ';' ;
+block        : '{' stmts? '}' ;
+assignStmt   : location '=' expr ;
+location     : ID ;
+methodCall   : ID '(' actuals? ')' ;
+actuals      : expr (',' expr)* ;
+expr         : cmpExpr ;
+cmpExpr      : addExpr (relop addExpr)? ;
+addExpr      : multExpr (addop multExpr)* ;
+multExpr     : unaryExpr (mulop unaryExpr)* ;
+unaryExpr    : ('-' unaryExpr) | primaryExpr ;
+primaryExpr  : '(' expr ')' | methodCall | location | INTEGER | 'true' | 'false' ;
+relop        : '<=' | '<' | '>' | '>=' | '==' | '!=' ;
+addop        : '+' | '-' ;
+mulop        : '*' | '/' ;
+ID           : [a-zA-Z] [a-zA-Z0-9_]* ;
+INTEGER      : [0-9]+ ;
+WS           : [ \t\r\n]+ -> skip ;
+COMMENT      : '//' ~[\r\n]* -> skip ;
