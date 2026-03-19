@@ -1,0 +1,60 @@
+START   ORIG 1000
+        JMP MAIN
+FACTORIAL   NOP
+        LDA FACTORIALN
+        STA TMP0
+        LDA 1
+        STA TMP1
+        LDA TMP0
+        CMPA TMP1
+        JLE L2
+        LDA 0
+        JMP L3
+L2   NOP
+        LDA 1
+L3   NOP
+        JE L0
+        LDA 1
+        JMP RETFACTOR
+        JMP L1
+L0   NOP
+        LDA FACTORIALN
+        STA TMP2
+        STJ SAVEDREG
+        LDA FACTORIALN
+        STA TMP3
+        LDA 1
+        STX 0,1
+        LDA TMP3
+        SUB 0,1
+        STA PARAM0
+        JSJ FACTORIAL
+        LD6 SAVEDREG
+        MUL TMP2
+        JMP RETFACTOR
+L1   NOP
+        JMP RETFACTOR
+RETFACTOR   NOP
+MAIN   NOP
+        STJ SAVEDREG
+        LDA 5
+        STA PARAM0
+        JSJ FACTORIAL
+        LD6 SAVEDREG
+        JMP RETMAIN
+        JMP RETMAIN
+RETMAIN   NOP
+FACTORIALN   ORIG 2000
+        CON 0
+TMP3   ORIG 2006
+        CON 0
+TMP2   ORIG 2004
+        CON 0
+TMP1   ORIG 2003
+        CON 0
+TMP0   ORIG 2002
+        CON 0
+SAVEDREG   ORIG 2005
+        CON 0
+PARAM0   ORIG 2007
+        CON 0

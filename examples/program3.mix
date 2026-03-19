@@ -1,0 +1,65 @@
+START   ORIG 1000
+        JMP MAIN
+METHOD1   NOP
+        LDA METHOD1A
+        STA TMP0
+        LDA 10
+        LDA TMP0
+        ADD 0,1
+        STA METHOD1B
+        LDA METHOD1B
+        JMP RETMETHOD
+        JMP RETMETHOD
+RETMETHOD   NOP
+METHOD2   NOP
+        STJ SAVEDREG
+        LDA METHOD2C
+        STA PARAM0
+        JSJ METHOD1
+        LD6 SAVEDREG
+        STA METHOD2E
+        LDA METHOD2E
+        STA TMP1
+        LDA METHOD2D
+        LDA TMP1
+        ADD 0,1
+        STA METHOD2E
+        LDA METHOD2E
+        JMP RETMETHOD
+        JMP RETMETHOD
+RETMETHOD   NOP
+MAIN   NOP
+        STJ SAVEDREG
+        LDA 5
+        STA PARAM0
+        LDA 6
+        STA PARAM1
+        JSJ METHOD2
+        LD6 SAVEDREG
+        JMP RETMAIN
+        JMP RETMAIN
+RETMAIN   NOP
+        ORIG 2002
+        CON 0
+        ORIG 2009
+        CON 0
+METHOD2D   ORIG 2006
+        CON 0
+METHOD1B   ORIG 2004
+        CON 0
+METHOD2C   ORIG 2005
+        CON 0
+PARAM1   ORIG 2014
+        CON 0
+METHOD1A   ORIG 2000
+        CON 0
+TMP1   ORIG 2013
+        CON 0
+TMP0   ORIG 2003
+        CON 0
+SAVEDREG   ORIG 2010
+        CON 0
+PARAM0   ORIG 2011
+        CON 0
+METHOD2E   ORIG 2012
+        CON 0

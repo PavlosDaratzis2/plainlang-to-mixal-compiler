@@ -1,0 +1,68 @@
+* MIXAL generated code
+        ORIG 1000
+        JMP MAIN
+
+* Method FACTORIAL
+FACTORIAL   NOP
+        LDA FACTORIAL_N
+        STA TMP0
+        LDA =1=
+        STA TMP1
+        LDA TMP0
+        CMPA TMP1
+        JLE L2
+        LDA =0=
+        JMP L3
+L2   NOP
+        LDA =1=
+L3   NOP
+        JZ L0
+        LDA =1=
+        JMP RETFACTORIAL
+        JMP L1
+L0   NOP
+        LDA FACTORIAL_N
+        STA TMP2
+        STJ SAVED_J
+        LDA FACTORIAL_N
+        STA TMP3
+        LDA =1=
+        STX 0,1
+        LDA TMP3
+        SUB 0,1
+        STA PARAM0
+        JSJ FACTORIAL
+        LDJ SAVED_J
+        MUL TMP2
+        JMP RETFACTORIAL
+L1   NOP
+        JMP RETFACTORIAL
+RETFACTORIAL   NOP
+
+
+* Method MAIN
+MAIN   NOP
+        STJ SAVED_J
+        LDA =5=
+        STA PARAM0
+        JSJ FACTORIAL
+        LDJ SAVED_J
+        JMP RETMAIN
+        JMP RETMAIN
+RETMAIN   NOP
+
+
+* Variable storage area
+FACTORIAL_N   ORIG 2000
+        CON 0
+TMP3   ORIG 2005
+        CON 0
+TMP2   ORIG 2004
+        CON 0
+TMP1   ORIG 2003
+        CON 0
+TMP0   ORIG 2002
+        CON 0
+PARAM0   ORIG 2006
+        CON 0
+        END
